@@ -4,8 +4,11 @@ import { Word } from "@/app/_types";
 import ControlButton from "../button/control-button";
 import GuessHistory from "../guess-history";
 import GameModal from "./game-modal";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import html2canvas from "html2canvas";
+
+// Import your SignUpModal component
+import SignUpModal from "./sign-up-modal";
 
 type GameWonModalProps = {
   isOpen: boolean;
@@ -16,6 +19,26 @@ type GameWonModalProps = {
 
 export default function GameWonModal(props: GameWonModalProps) {
   const guessHistoryRef = useRef<HTMLDivElement>(null);
+
+  // State to handle opening/closing the theme modal
+  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+
+  // State to handle opening/closing the sign up modal
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+
+  /**
+   * Handler to show a secondary modal about today's theme.
+   */
+  const handleLearnTodayTheme = () => {
+    setIsThemeModalOpen(true);
+  };
+
+  /**
+   * Handler to close the secondary theme modal.
+   */
+  const handleCloseThemeModal = () => {
+    setIsThemeModalOpen(false);
+  };
 
   /**
    * Handler to share the game result via WhatsApp.
@@ -37,52 +60,86 @@ export default function GameWonModal(props: GameWonModalProps) {
       "",
       "📜 My Guesses :",
       ...props.guessHistory.map((guess, index) => {
-        const emojiLine = guess.map(word => levelToEmoji[word.level] || "⬜️").join("");
+        const emojiLine = guess.map((word) => levelToEmoji[word.level] || "⬜️").join("");
         return `${index + 1}. ${emojiLine}`;
       }),
       "",
-      `🔗 Play the game here: ${gameLink}`
+      `🔗 Play the game here: ${gameLink}`,
     ];
 
     const textMessage = textMessageLines.join("\n");
-
-    // Encode the text message
     const encodedTextMessage = encodeURIComponent(textMessage);
-
-    // WhatsApp share URL for text
     const whatsappURL = `https://wa.me/?text=${encodedTextMessage}`;
 
-    // Open WhatsApp in a new tab/window
-    const newWindow = window.open(whatsappURL, "_blank");
-
-
-    // Capture the GuessHistory component as an image
-   
+    window.open(whatsappURL, "_blank");
   };
 
   return (
-    <GameModal isOpen={props.isOpen} onClose={props.onClose}>
-      <div className="flex flex-col items-center justify-center px-12">
-        <h1 className="text-black text-4xl font-black my-4 ml-4">
-          {props.perfection}
-        </h1>
-        <hr className="mb-2 md:mb-4 w-full" />
-        <h2 className="text-black mb-8">{"You've won the game!"}</h2>
-        
-        {/* Hidden GuessHistory for Image Capture */}
-        <div style={{ display: "none" }}>
-          <GuessHistory guessHistory={props.guessHistory} ref={guessHistoryRef} />
-        </div>
+    <>
+      {/* Main "You Won" Modal */}
+      <GameModal isOpen={props.isOpen} onClose={props.onClose}>
+        <div className="flex flex-col items-center justify-center px-4 py-4 md:px-12 md:py-8 w-full">
+          <h1 className="text-black text-2xl md:text-4xl font-black my-2 md:my-4">
+            {props.perfection}
+          </h1>
+          <hr className="mb-2 md:mb-4 w-full" />
+          <h2 className="text-black text-lg md:text-2xl mb-4 md:mb-8">
+            You&apos;ve won the game!
+          </h2>
 
-        {/* Visible GuessHistory */}
-        <GuessHistory guessHistory={props.guessHistory} />
-        
-        {/* Button Container */}
-        <div className="flex space-x-4 mt-6">
-          <ControlButton text="Exit" onClick={props.onClose} />
-          <ControlButton text="Share to Whatsapp" onClick={handleShareToWhatsapp} />
+          {/* Hidden GuessHistory for Image Capture */}
+          <div style={{ display: "none" }}>
+            <GuessHistory guessHistory={props.guessHistory} ref={guessHistoryRef} />
+          </div>
+
+          {/* Visible GuessHistory */}
+          <GuessHistory guessHistory={props.guessHistory} />
+
+          {/* Button Container */}
+          <div className="flex flex-col items-center space-y-4 mt-6">
+            {/* Row 1 */}
+            <div className="flex flex-col md:flex-row space-y-4 md:space-x-4 md:space-y-0">
+              <ControlButton text="Exit" onClick={props.onClose} />
+              <ControlButton text="Share to Whatsapp" onClick={handleShareToWhatsapp} />
+            </div>
+
+            {/* Row 2 */}
+            <div className="flex flex-col md:flex-row space-y-4 md:space-x-4 md:space-y-0">
+              <ControlButton 
+                text="Learn about Today&apos;s Game" 
+                onClick={handleLearnTodayTheme}
+              />
+
+              {/* Sign Up for Updates Button */}
+              <ControlButton
+                text="Sign Up for Updates"
+                onClick={() => setShowSignUpModal(true)}
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </GameModal>
+      </GameModal>
+
+      {/* Secondary Modal for Theme Info */}
+      <GameModal isOpen={isThemeModalOpen} onClose={handleCloseThemeModal}>
+        <div className="flex flex-col items-center justify-center px-4 py-4 md:px-6 md:py-6">
+          <h2 className="text-black text-xl md:text-2xl font-bold mb-4">
+            Today&apos;s Theme
+          </h2>
+          <p className="text-black text-base md:text-lg mb-4">
+            Here is some text about today&apos;s theme. You can add more details,
+            references, images, or anything else you&apos;d like to share with the
+            player.
+          </p>
+          <ControlButton text="Close" onClick={handleCloseThemeModal} />
+        </div>
+      </GameModal>
+
+      {/* Sign Up Modal */}
+      <SignUpModal
+        isOpen={showSignUpModal}
+        onClose={() => setShowSignUpModal(false)}
+      />
+    </>
   );
 }

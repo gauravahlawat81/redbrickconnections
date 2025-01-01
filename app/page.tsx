@@ -6,6 +6,8 @@ import Grid from "./_components/game/grid";
 import GameLostModal from "./_components/modal/game-lost-modal";
 import GameWonModal from "./_components/modal/game-won-modal";
 import HelpModal from "./_components/modal/help-modal"; // Import the HelpModal component
+import SignUpModal from "./_components/modal/sign-up-modal"; // [ADDED] import the new modal
+
 
 import Popup from "./_components/popup";
 import useAnimation from "./_hooks/use-animation";
@@ -39,6 +41,8 @@ export default function Home() {
 
   const [showGameWonModal, setShowGameWonModal] = useState(false);
   const [showGameLostModal, setShowGameLostModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false); // [ADDED]
+
   const [submitted, setSubmitted] = useState(false);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for hamburger menu
@@ -191,10 +195,21 @@ export default function Home() {
               className="bg-green-500 hover:bg-blue-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
               onClick={() =>
                 window.open("https://forms.gle/xW5EJGG6YKUfoxnL8", "_blank")
+                
               }
             >
               Create a Game
             </button>
+            
+            {/* <button
+              className="bg-green-500 hover:bg-blue-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
+              onClick={() =>
+                setShowSignUpModal(true)
+              }
+            >
+              Sign Up for Updates!
+            </button> */}
+
           </div>
 
           {/* Hamburger Menu for Mobile (Top-Right) */}
@@ -310,6 +325,10 @@ export default function Home() {
         guessHistory={guessHistoryRef.current}
       />
       <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
+      <SignUpModal 
+        isOpen={showSignUpModal} 
+        onClose={() => setShowSignUpModal(false)} 
+      />
     </>
   );
 }
