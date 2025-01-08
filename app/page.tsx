@@ -201,14 +201,14 @@ export default function Home() {
               Create a Game
             </button>
             
-            {/* <button
+            <button
               className="bg-green-500 hover:bg-blue-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
               onClick={() =>
                 setShowSignUpModal(true)
               }
             >
               Sign Up for Updates!
-            </button> */}
+            </button>
 
           </div>
 
