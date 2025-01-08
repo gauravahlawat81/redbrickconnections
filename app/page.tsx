@@ -251,7 +251,7 @@ export default function Home() {
         <hr className="mb-4 md:mb-4 w-full" />
         <h1 className="text-black mb-4 text-center">Create four groups of four!</h1>
         <h1 className="text-black mb-4 text-center">
-          Today&apos;s puzzle was partially created by Tanmay using our Create a Game feature!
+          Today&apos;s puzzle was partially created by Tanma using our Create a Game feature!
         </h1>
 
         <div className="relative w-full">
