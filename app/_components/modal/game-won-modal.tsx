@@ -5,10 +5,14 @@ import ControlButton from "../button/control-button";
 import GuessHistory from "../guess-history";
 import GameModal from "./game-modal";
 import React, { useRef, useState } from "react";
+
 import html2canvas from "html2canvas";
 
 // Import your SignUpModal component
 import SignUpModal from "./sign-up-modal";
+import TodayThemeModal from "./today-theme-modal"; // <--- Import new component
+
+import { log } from "console";
 
 type GameWonModalProps = {
   isOpen: boolean;
@@ -68,6 +72,7 @@ export default function GameWonModal(props: GameWonModalProps) {
     ];
 
     const textMessage = textMessageLines.join("\n");
+
     const encodedTextMessage = encodeURIComponent(textMessage);
     const whatsappURL = `https://wa.me/?text=${encodedTextMessage}`;
 
@@ -111,29 +116,17 @@ export default function GameWonModal(props: GameWonModalProps) {
               />
 
               {/* Sign Up for Updates Button */}
-              <ControlButton
+              {/* <ControlButton
                 text="Sign Up for Updates"
                 onClick={() => setShowSignUpModal(true)}
-              />
+              /> */}
             </div>
           </div>
         </div>
       </GameModal>
 
       {/* Secondary Modal for Theme Info */}
-      <GameModal isOpen={isThemeModalOpen} onClose={handleCloseThemeModal}>
-        <div className="flex flex-col items-center justify-center px-4 py-4 md:px-6 md:py-6">
-          <h2 className="text-black text-xl md:text-2xl font-bold mb-4">
-            Today&apos;s Theme
-          </h2>
-          <p className="text-black text-base md:text-lg mb-4">
-            Here is some text about today&apos;s theme. You can add more details,
-            references, images, or anything else you&apos;d like to share with the
-            player.
-          </p>
-          <ControlButton text="Close" onClick={handleCloseThemeModal} />
-        </div>
-      </GameModal>
+      <TodayThemeModal isOpen={isThemeModalOpen} onClose={handleCloseThemeModal}/>
 
       {/* Sign Up Modal */}
       <SignUpModal

@@ -2,23 +2,24 @@ import { Category } from "./_types";
 
 export const categories: Category[] = [
   {
-    category: 'HARVARD ____',
-    items: ["DINNER", "STEPS", "BUSINESS SCHOOL", "CASE"],
+    category: "UNDER___ ",
+    items: ["PASS", "STAND", "CUT", "WRITE"],
     level: 1,
   },
   {
-    category: "THINGS ASSOCIATED WITH LAW",
-    items: ["MP RAM MOHAN", "COUNSEL", "COURT", "CONTRACT"],
+    category: "Gen NB HOT TOPICS",
+    items: ["COLDPLAY", "DOGS", "SURVEY", "LOST & FOUND"],
     level: 2,
   },
   {
-    category: "MEANS OF ELEVATION",
-    items: ["LADDER", "SLOPE", "RAMP", "LIFT"],
+    category: 'FOLLOWED BY A NUMBER',
+    items: ["ALPHA", "OCEAN'S", "BEN", "FAMOUS"],
     level: 3,
+   
   },
   {
-    category: "CASE ____",
-    items: ["PREP", "BOOK", "COMPETITION", "STUDY"],
+    category: "PLACES ONE MIGHT FIND CP",
+    items: ["DELHI", "CLASSROOM", "COMMISSIONER'S OFFICE", "PROFIT CALCULATION"],
     level: 4,
   },
 ];

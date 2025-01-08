@@ -274,6 +274,7 @@ export default function Home() {
 
         <hr className="mb-4 md:mb-4 w-full" />
         <h1 className="text-black mb-4 text-center">Create four groups of four!</h1>
+        <h1 className="text-black mb-4 text-center">Today&apos;s puzzle was partially created by Tanmay using our Create a Game feature!</h1>
         <div className="relative w-full">
           <Popup show={popupState.show} message={popupState.message} />
           <Grid
@@ -288,7 +289,7 @@ export default function Home() {
 
         <h2 className="text-black my-4 md:my-8 mx-8">
           Mistakes Remaining:{" "}
-          {mistakesRemaining > 0 ? Array(mistakesRemaining).fill("•") : ""}
+          {mistakesRemaining > 0 ? Array(mistakesRemaining).fill("🟥") : ""}
         </h2>
 
         {/* Render your normal control buttons */}
