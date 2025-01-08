@@ -15,6 +15,7 @@ import { SubmitResult, Word } from "./_types";
 import { getPerfection } from "./_utils";
 import dynamic from "next/dynamic";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import Wordle from './wordle/wordle'
 
 const Countdown = dynamic(() => import("./countdown"), { ssr: false });
 
@@ -286,6 +287,7 @@ export default function Home() {
           </h3>
         </div>
       </div>
+      <Wordle/>
 
       {/* Modals */}
       <GameWonModal
