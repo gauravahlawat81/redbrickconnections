@@ -226,7 +226,7 @@ export default function Home() {
                 >
                   Create a Game
                 </button>
-                <button
+                {/* <button
                   className="bg-green-500 hover:bg-blue-600 text-white text-sm font-medium rounded py-2 px-4 w-full text-left"
                   onClick={() => {
                     setShowSignUpModal(true);
@@ -234,7 +234,7 @@ export default function Home() {
                   }}
                 >
                   Sign Up for Updates!
-                </button>
+                </button> */}
               </div>
             </div>
           </>
