@@ -251,7 +251,7 @@ export default function Home() {
                       setIsMenuOpen(false);
                     }}
                   >
-                    Create a Game
+                    Create a Game!
                   </button>
                   <ControlButton text="Logout" onClick={handleLogOut} />
                 </div>
