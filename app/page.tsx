@@ -1,7 +1,8 @@
+// app/page.tsx
+
 "use client";
 
-import { useCallback, useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import React, { useCallback, useState, Suspense } from "react";
 import ControlButton from "./_components/button/control-button";
 import Grid from "./_components/game/grid";
 import GameLostModal from "./_components/modal/game-lost-modal";
@@ -16,16 +17,15 @@ import { SubmitResult, Word } from "./_types";
 import { getPerfection } from "./_utils";
 import dynamic from "next/dynamic";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { log } from "console";
 
+import UserHandler from "./UserHandler"; // Adjust the path as necessary
+
+// Dynamically import Countdown with SSR disabled
 const Countdown = dynamic(() => import("./countdown"), { ssr: false });
 
 export default function Home() {
-  // Track if the user is logged in
-  const [googleUser, setGoogleUser] = useState<any>(null);
-  const searchParams = useSearchParams();
-
-
+  // Initialize googleUser as undefined to represent the loading state
+  const [googleUser, setGoogleUser] = useState<{ name: string; email: string } | null | undefined>(undefined);
 
   const [popupState, showPopup] = usePopup();
   const {
@@ -57,34 +57,6 @@ export default function Home() {
 
   // Countdown target date
   const targetDate = new Date("2025/03/29 00:00:00 UTC+5:30");
-
-  // On mount, check if the user is logged in
-  useEffect(() => {
-    // (a) Check localStorage
-    const storedUser = localStorage.getItem("googleUser");
-    console.log("Response from the storedUser  "+ storedUser);
-    
-    if (storedUser) {
-      setGoogleUser(JSON.parse(storedUser));
-    }
-
-    // (b) Check query params from OAuth callback
-    const nameFromUrl = searchParams.get("name");
-    const emailFromUrl = searchParams.get("email");
-
-    // If we have name & email in the URL, store them
-    if (nameFromUrl && emailFromUrl) {
-      const user = { name: nameFromUrl, email: emailFromUrl };
-      localStorage.setItem("googleUser", JSON.stringify(user));
-      setGoogleUser(user);
-
-      // (Optional) Clean up the URL so we don't show query params
-      // This only works in Next.js 13.4+ for the App Router
-      // or we can do a window.history.replaceState in older versions:
-      // window.history.replaceState({}, "", "/");
-    }
-  }, [searchParams]);
-
 
   // Google Sign-In Logic
   const handleGoogleSignIn = () => {
@@ -169,154 +141,164 @@ export default function Home() {
     }
   };
 
-  // Render Sign-In Option if Not Logged In
-  if (!googleUser) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen p-4">
-        <h2 className="text-xl font-bold mb-4">Please log in with Google to continue</h2>
-        <ControlButton text="Sign in with Google" onClick={handleGoogleSignIn} />
-      </div>
-    );
-  }
-
-  // Main Game Interface for Logged-In Users
   return (
     <>
-      <div className="flex flex-col items-center w-11/12 md:w-3/4 lg:w-7/12 mx-auto mt-14 relative px-4 sm:px-6 lg:px-8">
-        {/* Top Bar */}
-        <div className="w-full flex items-center justify-between mb-4">
-          {/* Hamburger (visible on mobile only) - top left */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-gray-700 focus:outline-none"
-            aria-label="Toggle Menu"
-          >
-            {isMenuOpen ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
-          </button>
+      {/* Suspense Boundary for UserHandler */}
+      <Suspense fallback={<div>Loading user data...</div>}>
+        <UserHandler setGoogleUser={setGoogleUser} />
+      </Suspense>
 
-          {/* Right side buttons (hidden on mobile, shown on md and up) */}
-          <div className="flex gap-4 items-center">
-            <div className="hidden md:flex gap-4">
-              <button
-                className="bg-blue-500 hover:bg-blue-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
-                onClick={() => setIsHelpOpen(true)}
-              >
-                Instructions
-              </button>
-              <button
-                className="bg-blue-500 hover:bg-green-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
-                onClick={() => window.open("https://forms.gle/Dqg9U2rJvpuN5KJ56", "_blank")}
-              >
-                Feedback
-              </button>
-              <button
-                className="bg-green-500 hover:bg-blue-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
-                onClick={() => window.open("https://forms.gle/xW5EJGG6YKUfoxnL8", "_blank")}
-              >
-                Create a Game
-              </button>
-              <ControlButton text="Logout" onClick={handleLogOut} />
-            </div>
-          </div>
+      {/* Conditional Rendering Based on Authentication State */}
+      {googleUser === undefined ? (
+        // While UserHandler is processing, show a loading indicator
+        <div className="flex flex-col items-center justify-center min-h-screen p-4">
+          <h2 className="text-xl font-bold mb-4">Loading...</h2>
         </div>
-
-        {/* SIDE NAV + BACKDROP (mobile only) */}
-        {isMenuOpen && (
-          <>
-            {/* Blurred/Dim Background */}
-            <div
-              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
-              onClick={() => setIsMenuOpen(false)}
-            />
-
-            {/* Slide-In Menu from the Left */}
-            <div
-              className={`
-                fixed top-0 left-0 h-full w-64 bg-white shadow-md z-50 p-4
-                transform transition-transform duration-300
-                translate-x-0
-                flex flex-col
-              `}
+      ) : googleUser === null ? (
+        // Render Sign-In Option if Not Logged In
+        <div className="flex flex-col items-center justify-center min-h-screen p-4">
+          <h2 className="text-xl font-bold mb-4">Please log in with Google to continue</h2>
+          <ControlButton text="Sign in with Google" onClick={handleGoogleSignIn} />
+        </div>
+      ) : (
+        // Main Game Interface for Logged-In Users
+        <div className="flex flex-col items-center w-11/12 md:w-3/4 lg:w-7/12 mx-auto mt-14 relative px-4 sm:px-6 lg:px-8">
+          {/* Top Bar */}
+          <div className="w-full flex items-center justify-between mb-4">
+            {/* Hamburger (visible on mobile only) - top left */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden text-gray-700 focus:outline-none"
+              aria-label="Toggle Menu"
             >
-              <button
-                onClick={() => setIsMenuOpen(false)}
-                className="text-gray-700 focus:outline-none mb-4"
-              >
-                <XIcon className="h-6 w-6" />
-              </button>
+              {isMenuOpen ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+            </button>
 
-              <div className="flex flex-col space-y-3">
+            {/* Right side buttons (hidden on mobile, shown on md and up) */}
+            <div className="flex gap-4 items-center">
+              <div className="hidden md:flex gap-4">
                 <button
-                  className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded py-2 px-4 w-full text-left"
-                  onClick={() => {
-                    setIsHelpOpen(true);
-                    setIsMenuOpen(false);
-                  }}
+                  className="bg-blue-500 hover:bg-blue-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
+                  onClick={() => setIsHelpOpen(true)}
                 >
                   Instructions
                 </button>
                 <button
-                  className="bg-blue-500 hover:bg-green-600 text-white text-sm font-medium rounded py-2 px-4 w-full text-left"
-                  onClick={() => {
-                    window.open("https://forms.gle/Dqg9U2rJvpuN5KJ56", "_blank");
-                    setIsMenuOpen(false);
-                  }}
+                  className="bg-blue-500 hover:bg-green-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
+                  onClick={() => window.open("https://forms.gle/Dqg9U2rJvpuN5KJ56", "_blank")}
                 >
                   Feedback
                 </button>
                 <button
-                  className="bg-green-500 hover:bg-blue-600 text-white text-sm font-medium rounded py-2 px-4 w-full text-left"
-                  onClick={() => {
-                    window.open("https://forms.gle/xW5EJGG6YKUfoxnL8", "_blank");
-                    setIsMenuOpen(false);
-                  }}
+                  className="bg-green-500 hover:bg-blue-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
+                  onClick={() => window.open("https://forms.gle/xW5EJGG6YKUfoxnL8", "_blank")}
                 >
                   Create a Game
                 </button>
+                <ControlButton text="Logout" onClick={handleLogOut} />
               </div>
             </div>
-          </>
-        )}
+          </div>
 
-        {/* Title and Puzzle Info */}
-        <h1 className="text-black text-2xl sm:text-3xl md:text-5xl text-center whitespace-nowrap font-semibold my-4 px-2 sm:px-4">
-          <span style={{ color: "#bc4a3c" }} className="font-bold">
-            Red Brick
-          </span>{" "}
-          Connections
-        </h1>
+          {/* SIDE NAV + BACKDROP (mobile only) */}
+          {isMenuOpen && (
+            <>
+              {/* Blurred/Dim Background */}
+              <div
+                className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+                onClick={() => setIsMenuOpen(false)}
+              />
 
-        <hr className="mb-4 md:mb-4 w-full" />
-        <h1 className="text-black mb-4 text-center">Create four groups of four!</h1>
+              {/* Slide-In Menu from the Left */}
+              <div
+                className={`
+                  fixed top-0 left-0 h-full w-64 bg-white shadow-md z-50 p-4
+                  transform transition-transform duration-300
+                  translate-x-0
+                  flex flex-col
+                `}
+              >
+                <button
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-gray-700 focus:outline-none mb-4"
+                >
+                  <XIcon className="h-6 w-6" />
+                </button>
 
-        {/* Puzzle Grid */}
-        <div className="relative w-full">
-          <Popup show={popupState.show} message={popupState.message} />
-          <Grid
-            words={gameWords}
-            selectedWords={selectedWords}
-            onClick={onClickCell}
-            clearedCategories={clearedCategories}
-            guessAnimationState={guessAnimationState}
-            wrongGuessAnimationState={wrongGuessAnimationState}
-          />
-        </div>
+                <div className="flex flex-col space-y-3">
+                  <button
+                    className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded py-2 px-4 w-full text-left"
+                    onClick={() => {
+                      setIsHelpOpen(true);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Instructions
+                  </button>
+                  <button
+                    className="bg-blue-500 hover:bg-green-600 text-white text-sm font-medium rounded py-2 px-4 w-full text-left"
+                    onClick={() => {
+                      window.open("https://forms.gle/Dqg9U2rJvpuN5KJ56", "_blank");
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Feedback
+                  </button>
+                  <button
+                    className="bg-green-500 hover:bg-blue-600 text-white text-sm font-medium rounded py-2 px-4 w-full text-left"
+                    onClick={() => {
+                      window.open("https://forms.gle/xW5EJGG6YKUfoxnL8", "_blank");
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Create a Game
+                  </button>
+                  <ControlButton text="Logout" onClick={handleLogOut} />
+                </div>
+              </div>
+            </>
+          )}
 
-        <h2 className="text-black my-4 md:my-8 mx-8">
-          Mistakes Remaining: {mistakesRemaining > 0 ? Array(mistakesRemaining).fill("🟥") : ""}
-        </h2>
+          {/* Title and Puzzle Info */}
+          <h1 className="text-black text-2xl sm:text-3xl md:text-5xl text-center whitespace-nowrap font-semibold my-4 px-2 sm:px-4">
+            <span style={{ color: "#bc4a3c" }} className="font-bold">
+              Red Brick
+            </span>{" "}
+            Connections
+          </h1>
 
-        {renderControlButtons()}
+          <hr className="mb-4 md:mb-4 w-full" />
+          <h1 className="text-black mb-4 text-center">Create four groups of four!</h1>
 
-        {/* Countdown */}
-        <div className="flex justify-center items-center h-full">
-          <div className="flex flex-col items-center my-12">
-            <h1 className="text-4xl font-bold text-center text-black">Batch of 2025</h1>
-            <h1 className="text-lg mb-6 text-center text-black">graduates in</h1>
-            <Countdown targetTime={targetDate} />
+          {/* Puzzle Grid */}
+          <div className="relative w-full">
+            <Popup show={popupState.show} message={popupState.message} />
+            <Grid
+              words={gameWords}
+              selectedWords={selectedWords}
+              onClick={onClickCell}
+              clearedCategories={clearedCategories}
+              guessAnimationState={guessAnimationState}
+              wrongGuessAnimationState={wrongGuessAnimationState}
+            />
+          </div>
+
+          <h2 className="text-black my-4 md:my-8 mx-8">
+            Mistakes Remaining: {mistakesRemaining > 0 ? Array(mistakesRemaining).fill("🟥") : ""}
+          </h2>
+
+          {renderControlButtons()}
+
+          {/* Countdown */}
+          <div className="flex justify-center items-center h-full">
+            <div className="flex flex-col items-center my-12">
+              <h1 className="text-4xl font-bold text-center text-black">Batch of 2025</h1>
+              <h1 className="text-lg mb-6 text-center text-black">graduates in</h1>
+              <Countdown targetTime={targetDate} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Modals */}
       <GameWonModal
