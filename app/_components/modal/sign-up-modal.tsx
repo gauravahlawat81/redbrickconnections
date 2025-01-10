@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
-import GameModal from "./game-modal"; 
+import GameModal from "./game-modal";
 import ControlButton from "../button/control-button";
 
 type SignUpModalProps = {
@@ -51,10 +51,29 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
     }
   };
 
+  // This function triggers the Google OAuth flow via NextAuth
+  const handleGoogleSignUp = () => {
+    const width = 500;
+  const height = 600;
+  const left = (window.screen.width - width) / 2;
+  const top = (window.screen.height - height) / 2;
+
+  // Open a small popup in the center of the user’s screen
+  const popup = window.open(
+    "/api/auth/google", // your OAuth route
+    "google-oauth",
+    `width=${width},height=${height},top=${top},left=${left},popup=yes,scrollbars=yes,resizable=no`
+  );
+  };
+
   return (
     <GameModal isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col items-center justify-center p-6 w-full max-w-md">
-        <h2 className="text-black text-2xl font-bold mb-4">Sign Up for Updates</h2>
+        <h2 className="text-black text-2xl font-bold mb-4">
+          Please Sign Up for Updates
+        </h2>
+
+        {/* Manual sign-up form */}
         <form onSubmit={handleSubmit} className="w-full flex flex-col space-y-4">
           <div>
             <label className="block text-black mb-1" htmlFor="name">
@@ -93,6 +112,26 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
             />
           </div>
         </form>
+
+        {/* “We will update you…” text */}
+        <h1 className="mt-4 flex items-center justify-center">
+          We will update you every time there&apos;s a new game
+        </h1>
+
+        {/* OR divider */}
+        <div className="flex items-center my-4 w-full">
+          <hr className="flex-grow border-gray-300" />
+          <span className="mx-2 text-gray-500">OR</span>
+          <hr className="flex-grow border-gray-300" />
+        </div>
+
+        {/* Sign up with Google */}
+        <ControlButton
+          text="Sign up with Google"
+          type="button"
+          onClick={handleGoogleSignUp}
+        />
+
         {statusMessage && (
           <p className="mt-4 text-center text-sm text-gray-700">
             {statusMessage}

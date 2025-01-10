@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useState, useRef, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import ControlButton from "./_components/button/control-button";
 import Grid from "./_components/game/grid";
 import GameLostModal from "./_components/modal/game-lost-modal";
@@ -15,10 +16,17 @@ import { SubmitResult, Word } from "./_types";
 import { getPerfection } from "./_utils";
 import dynamic from "next/dynamic";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { log } from "console";
 
 const Countdown = dynamic(() => import("./countdown"), { ssr: false });
 
 export default function Home() {
+  // Track if the user is logged in
+  const [googleUser, setGoogleUser] = useState<any>(null);
+  const searchParams = useSearchParams();
+
+
+
   const [popupState, showPopup] = usePopup();
   const {
     gameWords,
@@ -49,6 +57,45 @@ export default function Home() {
 
   // Countdown target date
   const targetDate = new Date("2025/03/29 00:00:00 UTC+5:30");
+
+  // On mount, check if the user is logged in
+  useEffect(() => {
+    // (a) Check localStorage
+    const storedUser = localStorage.getItem("googleUser");
+    console.log("Response from the storedUser  "+ storedUser);
+    
+    if (storedUser) {
+      setGoogleUser(JSON.parse(storedUser));
+    }
+
+    // (b) Check query params from OAuth callback
+    const nameFromUrl = searchParams.get("name");
+    const emailFromUrl = searchParams.get("email");
+
+    // If we have name & email in the URL, store them
+    if (nameFromUrl && emailFromUrl) {
+      const user = { name: nameFromUrl, email: emailFromUrl };
+      localStorage.setItem("googleUser", JSON.stringify(user));
+      setGoogleUser(user);
+
+      // (Optional) Clean up the URL so we don't show query params
+      // This only works in Next.js 13.4+ for the App Router
+      // or we can do a window.history.replaceState in older versions:
+      // window.history.replaceState({}, "", "/");
+    }
+  }, [searchParams]);
+
+
+  // Google Sign-In Logic
+  const handleGoogleSignIn = () => {
+    console.log("Redirecting to Google OAuth...");
+    window.location.href = "/api/auth/google"; // Redirect to Google OAuth
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem("googleUser");
+    setGoogleUser(null);
+  };
 
   // Submit logic
   const handleSubmit = async () => {
@@ -122,10 +169,20 @@ export default function Home() {
     }
   };
 
+  // Render Sign-In Option if Not Logged In
+  if (!googleUser) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen p-4">
+        <h2 className="text-xl font-bold mb-4">Please log in with Google to continue</h2>
+        <ControlButton text="Sign in with Google" onClick={handleGoogleSignIn} />
+      </div>
+    );
+  }
+
+  // Main Game Interface for Logged-In Users
   return (
     <>
       <div className="flex flex-col items-center w-11/12 md:w-3/4 lg:w-7/12 mx-auto mt-14 relative px-4 sm:px-6 lg:px-8">
-
         {/* Top Bar */}
         <div className="w-full flex items-center justify-between mb-4">
           {/* Hamburger (visible on mobile only) - top left */}
@@ -139,9 +196,6 @@ export default function Home() {
 
           {/* Right side buttons (hidden on mobile, shown on md and up) */}
           <div className="flex gap-4 items-center">
-            {/* We intentionally skip putting anything in the space on the left 
-                because we want the big 4 buttons on the top right. 
-                On mobile, these are hidden in favor of the hamburger. */}
             <div className="hidden md:flex gap-4">
               <button
                 className="bg-blue-500 hover:bg-blue-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
@@ -161,12 +215,7 @@ export default function Home() {
               >
                 Create a Game
               </button>
-              <button
-                className="bg-green-500 hover:bg-blue-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
-                onClick={() => setShowSignUpModal(true)}
-              >
-                Sign Up for Updates!
-              </button>
+              <ControlButton text="Logout" onClick={handleLogOut} />
             </div>
           </div>
         </div>
@@ -189,7 +238,6 @@ export default function Home() {
                 flex flex-col
               `}
             >
-              {/* Close Icon inside the side nav (optional) */}
               <button
                 onClick={() => setIsMenuOpen(false)}
                 className="text-gray-700 focus:outline-none mb-4"
@@ -197,7 +245,6 @@ export default function Home() {
                 <XIcon className="h-6 w-6" />
               </button>
 
-              {/* Buttons: spaced out so there's less blank space at bottom */}
               <div className="flex flex-col space-y-3">
                 <button
                   className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded py-2 px-4 w-full text-left"
@@ -226,21 +273,12 @@ export default function Home() {
                 >
                   Create a Game
                 </button>
-                <button
-                  className="bg-green-500 hover:bg-blue-600 text-white text-sm font-medium rounded py-2 px-4 w-full text-left"
-                  onClick={() => {
-                    setShowSignUpModal(true);
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Sign Up for Updates!
-                </button>
               </div>
             </div>
           </>
         )}
 
-        {/* Title */}
+        {/* Title and Puzzle Info */}
         <h1 className="text-black text-2xl sm:text-3xl md:text-5xl text-center whitespace-nowrap font-semibold my-4 px-2 sm:px-4">
           <span style={{ color: "#bc4a3c" }} className="font-bold">
             Red Brick
@@ -250,10 +288,8 @@ export default function Home() {
 
         <hr className="mb-4 md:mb-4 w-full" />
         <h1 className="text-black mb-4 text-center">Create four groups of four!</h1>
-        <h1 className="text-black mb-4 text-center">
-          Today&apos;s puzzle was partially created by Tanma using our Create a Game feature!
-        </h1>
 
+        {/* Puzzle Grid */}
         <div className="relative w-full">
           <Popup show={popupState.show} message={popupState.message} />
           <Grid
@@ -272,18 +308,13 @@ export default function Home() {
 
         {renderControlButtons()}
 
+        {/* Countdown */}
         <div className="flex justify-center items-center h-full">
           <div className="flex flex-col items-center my-12">
             <h1 className="text-4xl font-bold text-center text-black">Batch of 2025</h1>
             <h1 className="text-lg mb-6 text-center text-black">graduates in</h1>
             <Countdown targetTime={targetDate} />
           </div>
-        </div>
-
-        <div className="my-f flex flex-col items-center">
-          <h3 className="text-black italic mb-2 text-base sm:text-xl md:text-2xl text-center">
-            Have you made a memory today?
-          </h3>
         </div>
       </div>
 
