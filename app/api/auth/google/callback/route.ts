@@ -52,22 +52,22 @@ export async function GET(request: NextRequest) {
     // Example response: { id, email, verified_email, name, given_name, family_name, picture, ... }
 
     // 5) Write to DynamoDB
-    // const dynamoClient = new DynamoDBClient({ region: "ap-south-1" }); 
-    // // Replace with your actual AWS region if different
+    const dynamoClient = new DynamoDBClient({ region: "ap-south-1" }); 
+    // Replace with your actual AWS region if different
 
-    // await dynamoClient.send(
-    //   new PutItemCommand({
-    //     TableName: "Users", // The name of your DynamoDB table
-    //     Item: {
-    //       email_id: { S: userInfo.email ?? "unknown_email" },
-    //       score: { S: "0" },
-    //       // Additional attributes
-    //       name: { S: userInfo.name ?? "" },
-    //       // Example: userId if you want
-    //       // user_id: { S: userInfo.id ?? "" },
-    //     },
-    //   })
-    // );
+    await dynamoClient.send(
+      new PutItemCommand({
+        TableName: "Users", // The name of your DynamoDB table
+        Item: {
+          email_id: { S: userInfo.email ?? "unknown_email" },
+          score: { S: "0" },
+          // Additional attributes
+          name: { S: userInfo.name ?? "" },
+          // Example: userId if you want
+          // user_id: { S: userInfo.id ?? "" },
+        },
+      })
+    );
 
     // 6) Redirect user to home page with name and email as query parameters
     const redirectUrl = new URL("/", baseUrl);

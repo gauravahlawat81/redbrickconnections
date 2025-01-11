@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-amplify/adapter-nextjs": "^1.4.0",
     "@aws-sdk/client-dynamodb": "^3.726.0",
     "@heroicons/react": "^1.0.6",
+    "aws-amplify": "^6.12.0",
     "axios": "^1.7.9",
     "googleapis": "^144.0.0",
     "html2canvas": "^1.4.1",
