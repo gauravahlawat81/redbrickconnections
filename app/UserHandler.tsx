@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
 interface UserHandlerProps {
-  setGoogleUser: (user: { name: string; email: string }) => void;
+  setGoogleUser: (user: { name: string; email: string } | null) => void;
 }
 
 export default function UserHandler({ setGoogleUser }: UserHandlerProps) {
@@ -20,6 +20,10 @@ export default function UserHandler({ setGoogleUser }: UserHandlerProps) {
     if (storedUser) {
       setGoogleUser(JSON.parse(storedUser));
     }
+    else {
+        // Explicitly set null if no user in localStorage
+        setGoogleUser(null);
+      }
 
     // (b) Check query params from OAuth callback
     const nameFromUrl = searchParams.get("name");
