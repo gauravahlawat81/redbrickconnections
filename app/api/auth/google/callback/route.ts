@@ -23,6 +23,7 @@ export async function GET(request: NextRequest) {
       throw new Error("BASE_URL is not defined in environment variables");
     }
     const redirectUri = `${baseUrl}/api/auth/google/callback`;
+    console.log("RedirectURI in route callback  "+ redirectUri);
 
     // 3) Exchange the code for tokens
     const tokenRes = await axios.post("https://oauth2.googleapis.com/token", null, {

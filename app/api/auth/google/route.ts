@@ -1,5 +1,6 @@
 // app/api/auth/google/route.ts
 
+import { log } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -12,6 +13,8 @@ export async function GET(request: NextRequest) {
     }
 
     const redirectUri = `${baseUrl}/api/auth/google/callback`;
+    console.log("RedirectURI is route  "+ redirectUri);
+    
 
     const params = new URLSearchParams({
       client_id: clientId,
