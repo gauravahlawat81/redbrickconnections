@@ -13,7 +13,7 @@ export default function UserHandler({ setGoogleUser }: UserHandlerProps) {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // (a) Check localStorages
+    // (a) Check localStorage
     const storedUser = localStorage.getItem("googleUser");
     console.log("Response from the storedUser:", storedUser);
 
