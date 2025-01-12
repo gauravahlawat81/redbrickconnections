@@ -75,33 +75,64 @@ export async function GET(request: NextRequest) {
 
     if (!mongoUri || !dbName) {
         throw new Error("MONGODB_URI or MONGODB_DB are not defined in environment variables");
-        }
-
-        const client = new MongoClient(mongoUri);
-        await client.connect();
-
-        try {
+      }
+    
+      const client = new MongoClient(mongoUri);
+      await client.connect();
+    
+      try {
         const db = client.db(dbName);
         const usersCollection = db.collection("Users");
-
+    
         // Check if there's already a document with this email
         const existingUser = await usersCollection.findOne({ email_id: userInfo.email });
-
+    
+        const today = new Date();
         if (!existingUser) {
-            // If not found, insert the new document
-            await usersCollection.insertOne({
+          // If not found, insert a new document
+          await usersCollection.insertOne({
             email_id: userInfo.email ?? "unknown_email",
-            score: 0,
-            name: userInfo.name ?? "",
-            gamesWon: [],
-            profileName: userInfo.name ?? "",
-            // user_id: userInfo.id ?? "" // if you want to store the user’s Google ID
-            });
+            score: 0, // Initial score
+            name: userInfo.name ?? "", // User's name
+            gamesWon: [], // Initialize gamesWon as empty
+            profileName: userInfo.name ?? "", // Profile name
+            LastLoginDate: today, // Current login date
+            streak: 0, // Initial streak
+          });
+        } else {
+          // If the user exists, update their LastLoginDate and streak
+          const lastLoginDate = existingUser.LastLoginDate ? new Date(existingUser.LastLoginDate) : null;
+    
+          let newStreak = existingUser.streak || 0;
+    
+          if (lastLoginDate) {
+            const diffInDays =
+              Math.floor((today.getTime() - lastLoginDate.getTime()) / (1000 * 60 * 60 * 24));
+    
+            if (diffInDays === 1) {
+              // Increment streak if the user logs in consecutively
+              newStreak += 1;
+            } else if (diffInDays > 1) {
+              // Reset streak if the user skipped a day
+              newStreak = 0;
+            }
+          }
+    
+          // Update the user's document with the new LastLoginDate and streak
+          await usersCollection.updateOne(
+            { email_id: userInfo.email },
+            {
+              $set: {
+                LastLoginDate: today, // Update the last login date
+                streak: newStreak, // Update the streak
+              },
+            }
+          );
         }
-        } finally {
+      } finally {
         // Ensure we close the connection to avoid leaving idle connections
         await client.close();
-    }
+      }
     // 6) Redirect user to home page with name and email as query parameters
     const redirectUrl = new URL("/", baseUrl);
     redirectUrl.searchParams.set("name", userInfo.name ?? "");

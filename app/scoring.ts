@@ -8,6 +8,6 @@ export function calculateScore(mistakesRemaining: number): number {
     // Example formula:
     // Start with 1000 points, subtract 5 points per second,
     // then add 50 points per remaining mistake as a bonus.
-    return 1000+ (250 * mistakesRemaining);
+    return 1000 + (250 * mistakesRemaining);
   }
   
