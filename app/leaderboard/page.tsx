@@ -14,15 +14,15 @@ export default async function LeaderboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Leaderboard</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center text-black">Leaderboard</h1>
 
       <div className="overflow-x-auto w-full max-w-2xl">
         <table className="min-w-full bg-white rounded shadow">
           <thead className="bg-purple-500 text-white">
             <tr>
-              <th className="px-4 py-2 text-left font-semibold">Rank</th>
-              <th className="px-4 py-2 text-left font-semibold">Name</th>
-              <th className="px-4 py-2 text-left font-semibold">Score</th>
+              <th className="px-4 py-2 text-left font-semibold text-black">Rank</th>
+              <th className="px-4 py-2 text-left font-semibold text-black">Name</th>
+              <th className="px-4 py-2 text-left font-semibold text-black">Score</th>
             </tr>
           </thead>
           <tbody>
