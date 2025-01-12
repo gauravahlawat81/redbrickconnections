@@ -3,6 +3,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { MongoClient } from "mongodb";
 
 export async function GET(request: NextRequest) {
     const code = request.nextUrl.searchParams.get("code");
@@ -69,6 +70,36 @@ export async function GET(request: NextRequest) {
     //   })
     // );
 
+    const mongoUri = process.env.MONGODB_URI;
+    const dbName = process.env.MONGODB_DB;
+
+    if (!mongoUri || !dbName) {
+        throw new Error("MONGODB_URI or MONGODB_DB are not defined in environment variables");
+        }
+
+        const client = new MongoClient(mongoUri);
+        await client.connect();
+
+        try {
+        const db = client.db(dbName);
+        const usersCollection = db.collection("Users");
+
+        // Check if there's already a document with this email
+        const existingUser = await usersCollection.findOne({ email_id: userInfo.email });
+
+        if (!existingUser) {
+            // If not found, insert the new document
+            await usersCollection.insertOne({
+            email_id: userInfo.email ?? "unknown_email",
+            score: "0",
+            name: userInfo.name ?? "",
+            // user_id: userInfo.id ?? "" // if you want to store the user’s Google ID
+            });
+        }
+        } finally {
+        // Ensure we close the connection to avoid leaving idle connections
+        await client.close();
+    }
     // 6) Redirect user to home page with name and email as query parameters
     const redirectUrl = new URL("/", baseUrl);
     redirectUrl.searchParams.set("name", userInfo.name ?? "");
