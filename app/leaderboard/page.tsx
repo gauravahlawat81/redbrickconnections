@@ -31,9 +31,9 @@ export default async function LeaderboardPage() {
                 key={leader._id?.toString()} // or some unique key
                 className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
               >
-                <td className="px-4 py-2 font-medium">{index + 1}</td>
-                <td className="px-4 py-2">{leader.name || "Unnamed"}</td>
-                <td className="px-4 py-2">{leader.score}</td>
+                <td className="px-4 py-2 font-medium text-black" >{index + 1}</td>
+                <td className="px-4 py-2 text-black">{leader.name || "Unnamed"}</td>
+                <td className="px-4 py-2 text-black">{leader.score}</td>
               </tr>
             ))}
           </tbody>
