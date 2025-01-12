@@ -208,7 +208,7 @@ export default function Home() {
                 </button>
                 <button
                   className="bg-purple-500 hover:bg-purple-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
-                  onClick={() => window.location.href = "/leaderboard"}
+                  onClick={() => window.open("/leaderboard", "_blank")}
                 >
                   Leaderboard
                 </button>
@@ -273,7 +273,7 @@ export default function Home() {
                   <button
                     className="bg-purple-500 hover:bg-purple-600 text-white text-sm font-medium rounded py-2 px-4 w-full text-left"
                     onClick={() => {
-                      window.location.href = "/leaderboard";
+                      window.open("/leaderboard", "_blank");
                       setIsMenuOpen(false);
                     }}
                   >
