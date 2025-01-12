@@ -47,7 +47,7 @@ export default async function LeaderboardPage() {
  * Fetch top 10 users by score (descending).
  */
 async function getLeaders() {
-  // 1) Read environment variables (must be set in your hosting env or .env)
+  // 1) Read environment variables (must be set in your hosting envv or .env)
   const mongoUri = process.env.MONGODB_URI;
   const dbName = process.env.MONGODB_DB;
   if (!mongoUri || !dbName) {
