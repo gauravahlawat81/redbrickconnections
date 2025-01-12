@@ -17,6 +17,7 @@ import { SubmitResult, Word } from "./_types";
 import { getPerfection } from "./_utils";
 import dynamic from "next/dynamic";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { calculateScore} from "./scoring"
 
 import UserHandler from "./UserHandler"; // Adjust the path as necessary
 
@@ -33,6 +34,7 @@ export default function Home() {
     selectedWords,
     clearedCategories,
     mistakesRemaining,
+    score,
     isWon,
     isLost,
     guessHistoryRef,
@@ -68,6 +70,8 @@ export default function Home() {
     localStorage.removeItem("googleUser");
     setGoogleUser(null);
   };
+
+  
 
   // Submit logic
   const handleSubmit = async () => {
@@ -306,6 +310,7 @@ export default function Home() {
         onClose={() => setShowGameWonModal(false)}
         guessHistory={guessHistoryRef.current}
         perfection={getPerfection(mistakesRemaining)}
+        score = {score}
       />
       <GameLostModal
         isOpen={showGameLostModal}

@@ -19,6 +19,7 @@ type GameWonModalProps = {
   onClose: () => void;
   guessHistory: Word[][];
   perfection: string;
+  score?:number;
 };
 
 export default function GameWonModal(props: GameWonModalProps) {
@@ -88,9 +89,18 @@ export default function GameWonModal(props: GameWonModalProps) {
             {props.perfection}
           </h1>
           <hr className="mb-2 md:mb-4 w-full" />
-          <h2 className="text-black text-lg md:text-2xl mb-4 md:mb-8">
-            You&apos;ve won the game!
-          </h2>
+          {props.score !== undefined && (
+            <h2 className="text-black text-lg md:text-2xl mb-4 md:mb-8">
+              You&apos;ve won the game! Your final score is: {props.score}
+            </h2>
+          )}
+
+          {/* If you want a separate message if the score is missing: */}
+          {!props.score && (
+            <h2 className="text-black text-lg md:text-2xl mb-4 md:mb-8">
+              You&apos;ve won the game!
+            </h2>
+          )}
 
           {/* Hidden GuessHistory for Image Capture */}
           <div style={{ display: "none" }}>

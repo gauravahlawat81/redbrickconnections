@@ -91,8 +91,10 @@ export async function GET(request: NextRequest) {
             // If not found, insert the new document
             await usersCollection.insertOne({
             email_id: userInfo.email ?? "unknown_email",
-            score: "0",
+            score: 0,
             name: userInfo.name ?? "",
+            gamesWon: [],
+            profileName: userInfo.name ?? "",
             // user_id: userInfo.id ?? "" // if you want to store the user’s Google ID
             });
         }

@@ -23,3 +23,5 @@ export const categories: Category[] = [
     level: 4,
   },
 ];
+
+export const gameID: number = 1

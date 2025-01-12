@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { categories } from "../_examples";
+import { categories, gameID } from "../_examples";
 import { Category, SubmitResult, Word } from "../_types";
 import { delay, shuffleArray } from "../_utils";
+import { calculateScore} from "../scoring"
+import { log } from "console";
 
 export default function useGameLogic() {
   const [gameWords, setGameWords] = useState<Word[]>([]);
@@ -13,6 +15,7 @@ export default function useGameLogic() {
   const [isWon, setIsWon] = useState(false);
   const [isLost, setIsLost] = useState(false);
   const [mistakesRemaining, setMistakesRemaning] = useState(4);
+  const [score, setScore] = useState(0);
   const guessHistoryRef = useRef<Word[][]>([]);
 
   useEffect(() => {
@@ -127,8 +130,41 @@ export default function useGameLogic() {
   };
 
   const handleWin = async () => {
-    await delay(1000);
+    console.log("Mistakes remaining is "+ mistakesRemaining);
+    const tentativeScore = calculateScore(mistakesRemaining);
+    setScore(tentativeScore)
     setIsWon(true);
+
+    try {
+      // 2) Fetch user’s email from localStorage
+      const storedUser = localStorage.getItem("googleUser");
+      if (!storedUser) {
+        console.warn("No user in localStorage; cannot update DB.");
+        return;
+      }
+      const { email } = JSON.parse(storedUser);
+  
+      // 3) Call our API route to update the user’s total score, if needed
+      const response = await fetch("/api/updateScore", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          gameID,
+          newScore: tentativeScore, // the score from this game
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Score update failed.");
+      }
+  
+      const data = await response.json();
+      console.log("Score updated successfully:", data);
+    } catch (err) {
+      console.error("Error updating score:", err);
+    }
+    await(1000);
   };
 
   return {
@@ -136,6 +172,7 @@ export default function useGameLogic() {
     selectedWords,
     clearedCategories,
     mistakesRemaining,
+    score,
     isWon,
     isLost,
     guessHistoryRef,
