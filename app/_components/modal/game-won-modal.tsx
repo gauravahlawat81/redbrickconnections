@@ -79,6 +79,9 @@ export default function GameWonModal(props: GameWonModalProps) {
 
     window.open(whatsappURL, "_blank");
   };
+  const handleLeaderBoard = () =>{
+    window.open("/leaderboard", "_blank")
+  }
 
   return (
     <>
@@ -123,6 +126,10 @@ export default function GameWonModal(props: GameWonModalProps) {
               <ControlButton 
                 text="Learn about Today&apos;s Game" 
                 onClick={handleLearnTodayTheme}
+              />
+              <ControlButton 
+                text="Leaderboard" 
+                onClick={handleLeaderBoard}
               />
 
               {/* Sign Up for Updates Button */}
