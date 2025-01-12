@@ -160,9 +160,16 @@ export default function Home() {
         </div>
       ) : googleUser === null ? (
         // Render Sign-In Option if Not Logged In
-        <div className="flex flex-col items-center justify-center min-h-screen p-4">
-          <h2 className="text-xl font-bold mb-4">Please log in with Google to continue</h2>
-          <ControlButton text="Sign in with Google" onClick={handleGoogleSignIn} />
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50">
+          <div className="max-w-md w-full space-y-8 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">
+              Please log in with Google to continue
+            </h2>
+            <h2 className="text-lg md:text-xl mb-4">
+              We will update you every time there&apos;s a new game!
+            </h2>
+            <ControlButton text="Sign in with Google" onClick={handleGoogleSignIn} />
+          </div>
         </div>
       ) : (
         // Main Game Interface for Logged-In Users
@@ -198,6 +205,12 @@ export default function Home() {
                   onClick={() => window.open("https://forms.gle/xW5EJGG6YKUfoxnL8", "_blank")}
                 >
                   Create a Game
+                </button>
+                <button
+                  className="bg-purple-500 hover:bg-purple-600 text-white text-sm sm:text-base font-medium rounded py-2 px-4"
+                  onClick={() => window.location.href = "/leaderboard"}
+                >
+                  Leaderboard
                 </button>
                 <ControlButton text="Logout" onClick={handleLogOut} />
               </div>
@@ -256,6 +269,15 @@ export default function Home() {
                     }}
                   >
                     Create a Game!
+                  </button>
+                  <button
+                    className="bg-purple-500 hover:bg-purple-600 text-white text-sm font-medium rounded py-2 px-4 w-full text-left"
+                    onClick={() => {
+                      window.location.href = "/leaderboard";
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Leaderboard
                   </button>
                   <ControlButton text="Logout" onClick={handleLogOut} />
                 </div>
