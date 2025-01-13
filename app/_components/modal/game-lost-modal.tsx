@@ -11,6 +11,7 @@ type GameLostModalProps = {
   isOpen: boolean;
   onClose: () => void;
   guessHistory: Word[][];
+  score?:number;
 };
 
 export default function GameLostModal(props: GameLostModalProps) {

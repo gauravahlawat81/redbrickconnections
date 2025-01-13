@@ -354,6 +354,7 @@ export default function Home() {
         isOpen={showGameLostModal}
         onClose={() => setShowGameLostModal(false)}
         guessHistory={guessHistoryRef.current}
+        score = {score}
       />
       <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
       <SignUpModal isOpen={showSignUpModal} onClose={() => setShowSignUpModal(false)} />

@@ -57,12 +57,18 @@ export default function UserHandler({ setGoogleUser }: UserHandlerProps) {
     // (b) Check query params from OAuth callback
     const nameFromUrl = searchParams.get("name");
     const emailFromUrl = searchParams.get("email");
+    const streakFromUrl = searchParams.get("streak"); // <-- new
 
     // If we have name & email in the URL, store them and reset gameStartTime
     if (nameFromUrl && emailFromUrl) {
       const user = { name: nameFromUrl, email: emailFromUrl };
       localStorage.setItem("googleUser", JSON.stringify(user));
       setGoogleUser(user);
+
+      if (streakFromUrl) {
+        localStorage.setItem("userStreak", streakFromUrl);
+      }
+
 
       // Clean up the URL to remove query parameters
       window.history.replaceState({}, "", "/");

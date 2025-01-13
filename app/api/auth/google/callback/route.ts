@@ -72,6 +72,7 @@ export async function GET(request: NextRequest) {
 
     const mongoUri = process.env.MONGODB_URI;
     const dbName = process.env.MONGODB_DB;
+    let latestStreak = 0 ;
 
     if (!mongoUri || !dbName) {
         throw new Error("MONGODB_URI or MONGODB_DB are not defined in environment variables");
@@ -86,7 +87,6 @@ export async function GET(request: NextRequest) {
     
         // Check if there's already a document with this email
         const existingUser = await usersCollection.findOne({ email_id: userInfo.email });
-    
         const today = new Date();
         if (!existingUser) {
           // If not found, insert a new document
@@ -102,7 +102,6 @@ export async function GET(request: NextRequest) {
         } else {
           // If the user exists, update their LastLoginDate and streak
           const lastLoginDate = existingUser.LastLoginDate ? new Date(existingUser.LastLoginDate) : null;
-    
           let newStreak = existingUser.streak || 0;
     
           if (lastLoginDate) {
@@ -128,6 +127,7 @@ export async function GET(request: NextRequest) {
               },
             }
           );
+          latestStreak = newStreak;
         }
       } finally {
         // Ensure we close the connection to avoid leaving idle connections
@@ -137,6 +137,8 @@ export async function GET(request: NextRequest) {
     const redirectUrl = new URL("/", baseUrl);
     redirectUrl.searchParams.set("name", userInfo.name ?? "");
     redirectUrl.searchParams.set("email", userInfo.email ?? "");
+    redirectUrl.searchParams.set("streak", String(latestStreak)); // <-- add streak
+
     console.log("Redirecting to " + redirectUrl);
 
     return NextResponse.redirect(redirectUrl);
