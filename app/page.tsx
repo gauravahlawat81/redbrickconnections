@@ -160,24 +160,31 @@ export default function Home() {
         </div>
       ) : googleUser === null ? (
         // Render Sign-In Option if Not Logged In
-        <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 flex items-center justify-center p-4">
-        {/* Container/card */}
-        <div className="bg-white shadow-lg rounded-xl max-w-md w-full p-8 text-center animate-fadeInDown">
+        <div
+        className="min-h-screen bg-cover bg-center flex items-center justify-center p-4 relative"
+        style={{
+          backgroundImage: "url('/1847.jpg')",
+        }}
+      >
+        {/* Optional dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/30" />
+      
+        {/* Container/card (placed above the overlay) */}
+        <div className="relative bg-white shadow-lg rounded-xl max-w-md w-full p-8 text-center animate-fadeInDown">
           <h2 className="text-2xl md:text-3xl font-extrabold mb-4 text-gray-800">
             Please log in with Google to continue
           </h2>
           <p className="text-gray-600 mb-8">
             We will update you every time there&apos;s a new game!
           </p>
-  
-          {/* The sign-in button */}
+      
           <button
             onClick={handleGoogleSignIn}
-            className="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full 
+            className="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full
                        hover:bg-blue-600 transform hover:scale-105 transition-transform"
           >
             Sign in with Google
-          </button> 
+          </button>
         </div>
       </div>
       ) : (
