@@ -162,10 +162,10 @@ export default function Home() {
         // Render Sign-In Option if Not Logged In
         <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50">
           <div className="max-w-md w-full space-y-8 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-2">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2 text-black">
               Please log in with Google to continue
             </h2>
-            <h2 className="text-lg md:text-xl mb-4">
+            <h2 className="text-lg md:text-xl mb-4 text-black">
               We will update you every time there&apos;s a new game!
             </h2>
             <ControlButton text="Sign in with Google" onClick={handleGoogleSignIn} />
