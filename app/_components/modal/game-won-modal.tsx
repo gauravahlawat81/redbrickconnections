@@ -5,6 +5,9 @@ import ControlButton from "../button/control-button";
 import GuessHistory from "../guess-history";
 import GameModal from "./game-modal";
 import React, { useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { faTrophy } from "@fortawesome/free-solid-svg-icons"
 
 import html2canvas from "html2canvas";
 
@@ -117,20 +120,39 @@ export default function GameWonModal(props: GameWonModalProps) {
           <div className="flex flex-col items-center space-y-4 mt-6">
             {/* Row 1 */}
             <div className="flex flex-col md:flex-row space-y-4 md:space-x-4 md:space-y-0">
-              <ControlButton text="Exit" onClick={props.onClose} />
-              <ControlButton text="Share to Whatsapp" onClick={handleShareToWhatsapp} />
+              {/* <ControlButton text="Exit" onClick={props.onClose} /> */}
+              <button onClick={props.onClose} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+                  Exit
+              </button>
+              <button type="button" onClick={handleShareToWhatsapp} className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                Share to Whatsapp
+                
+                <FontAwesomeIcon icon={faWhatsapp} className="w-4 h-4 align-middle ml-1" />
+                
+              </button>
+
+              {/* <ControlButton text="Share to Whatsapp" onClick={handleShareToWhatsapp} /> */}
             </div>
 
             {/* Row 2 */}
             <div className="flex flex-col md:flex-row space-y-4 md:space-x-4 md:space-y-0">
-              <ControlButton 
+              {/* <ControlButton 
                 text="Learn about Today&apos;s Game" 
                 onClick={handleLearnTodayTheme}
-              />
-              <ControlButton 
+              /> */}
+              <button type="button" onClick={handleLearnTodayTheme} className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Learn about Today&apos;sGane
+              </button>
+
+              <button type="button" onClick={handleLeaderBoard} className="text-black bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:focus:ring-yellow-900">
+              <span>Leaderboard</span>
+              <FontAwesomeIcon icon={faTrophy} className="w-5 h-5 ml-2 align-middle text-black" />
+              </button>
+
+              {/* <ControlButton 
                 text="Leaderboard" 
                 onClick={handleLeaderBoard}
-              />
+              /> */}
 
               {/* Sign Up for Updates Button */}
               {/* <ControlButton
