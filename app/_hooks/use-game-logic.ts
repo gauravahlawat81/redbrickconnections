@@ -201,7 +201,7 @@ export default function useGameLogic() {
     } catch (err) {
       console.error("Error updating score:", err);
     }
-    await(1000);
+    // await(1000);
   };
 
   return {

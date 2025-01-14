@@ -311,7 +311,7 @@ export default function Home() {
 
           <hr className="mb-4 md:mb-4 w-full" />
           <h1 className="text-black mb-4 text-center">Create four groups of four!</h1>
-
+          <h1 className="text-black mb-4 text-center">Today&apos;s puzzle was created by Saara Mehta using our Create a Game feature!</h1>
           {/* Puzzle Grid */}
           <div className="relative w-full">
             <Popup show={popupState.show} message={popupState.message} />

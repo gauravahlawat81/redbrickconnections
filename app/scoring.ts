@@ -6,10 +6,10 @@
  */
 export function calculateScore(mistakesRemaining: number,streakNumber:number): number {
     
-    const base = 1000 + 250 * mistakesRemaining;
+    const base = 1000 ;
     const streakBonus = Math.min(streakNumber * 100, 500);
 
-    if(!mistakesRemaining){
+    if(mistakesRemaining>0){
         return (base + streakBonus);
     } 
     else{
