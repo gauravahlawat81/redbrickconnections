@@ -5,11 +5,9 @@
  * Adjust the formula to your liking.
  */
 export function calculateScore(mistakesRemaining: number,streakNumber:number): number {
-    // Example formula:
-    // Start with 1000 points, subtract 5 points per second,
-    // then add 50 points per remaining mistake as a bonus.
+    
     const base = 1000 + 250 * mistakesRemaining;
-    const streakBonus = Math.min(streakNumber * 10, 50);
+    const streakBonus = Math.min(streakNumber * 100, 500);
 
     if(!mistakesRemaining){
         return (base + streakBonus);
