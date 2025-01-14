@@ -101,7 +101,7 @@ function ScoringModal({ onClose }: { onClose: () => void }) {
       
       {/* Modal content */}
       <div className="bg-white p-6 rounded-lg z-10 w-11/12 max-w-md">
-        <h2 className="text-xl font-bold mb-4">How Scoring Works</h2>
+        <h2 className="text-xl font-bold mb-4 text-black">How Scoring Works</h2>
         <p className="text-gray-700 mb-4">
           1000 base points for finishing. There are streak points as well, 100 points for each day played continously, capped at 500.
         </p>
