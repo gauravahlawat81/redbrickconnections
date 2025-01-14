@@ -46,9 +46,9 @@ export default function TodayThemeModal({ isOpen, onClose }: TodayThemeModalProp
           <h3 className="font-semibold mb-2">Words That Sound Like Philosophers</h3>
           <ul className="list-disc list-inside ml-4">
             <li>Plateau: Sounds like &quot;Plato,&quot; the Greek philosopher.</li>
-            <li>Niche: Sounds like &quot;Nietzsche,&quot; the German philosopher</li>
+            <li>Niche: Sounds like &quot;Nietzsche,&quot; the German philosopher.</li>
             <li>Lock: Sounds like &quot;Locke,&quot; the English philosopher.</li>
-            <li>Marks: Sounds like &quot;Marx,&quot; the German philosopherg</li>
+            <li>Marks: Sounds like &quot;Marx,&quot; the German philosopher.</li>
           </ul>
         </div>
 
