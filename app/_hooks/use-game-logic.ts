@@ -126,40 +126,40 @@ export default function useGameLogic() {
     }
 
     await delay(1000);
-    const storedStreak = localStorage.getItem("userStreak");
-    const streakNumber = storedStreak ? parseInt(storedStreak, 10) : 0;
-    const tentativeScore = calculateScore(mistakesRemaining,streakNumber);
-    setScore(tentativeScore)
+    // const storedStreak = localStorage.getItem("userStreak");
+    // const streakNumber = storedStreak ? parseInt(storedStreak, 10) : 0;
+    // const tentativeScore = calculateScore(mistakesRemaining,streakNumber);
+    // setScore(tentativeScore)
 
-    try {
-      // 2) Fetch user’s email from localStorage
-      const storedUser = localStorage.getItem("googleUser");
-      if (!storedUser) {
-        console.warn("No user in localStorage; cannot update DB.");
-        return;
-      }
-      const { email } = JSON.parse(storedUser);
+    // try {
+    //   // 2) Fetch user’s email from localStorage
+    //   const storedUser = localStorage.getItem("googleUser");
+    //   if (!storedUser) {
+    //     console.warn("No user in localStorage; cannot update DB.");
+    //     return;
+    //   }
+    //   const { email } = JSON.parse(storedUser);
   
-      // 3) Call our API route to update the user’s total score, if needed
-      const response = await fetch("/api/updateScore", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          gameID,
-          newScore: tentativeScore, // the score from this game
-        }),
-      });
+    //   // 3) Call our API route to update the user’s total score, if needed
+    //   const response = await fetch("/api/updateScore", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+    //       email,
+    //       gameID,
+    //       newScore: tentativeScore, // the score from this game
+    //     }),
+    //   });
   
-      if (!response.ok) {
-        throw new Error("Score update failed.");
-      }
+    //   if (!response.ok) {
+    //     throw new Error("Score update failed.");
+    //   }
   
-      const data = await response.json();
-      console.log("Score updated successfully:", data);
-    } catch (err) {
-      console.error("Error updating score:", err);
-    }
+    //   const data = await response.json();
+    //   console.log("Score updated successfully:", data);
+    // } catch (err) {
+    //   console.error("Error updating score:", err);
+    // }
     
     setIsLost(true);
   };
