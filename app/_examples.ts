@@ -2,26 +2,26 @@ import { Category } from "./_types";
 
 export const categories: Category[] = [
   {
-    category: "TYPES OF DOSAS AT RADHIKAS",
-    items: ["PIZZA", "GARLIC", "PANEER", "PLAIN"],
+    category: "___ WARS",
+    items: ["Section", "Star", "World", "Fan"],
     level: 1,
   },
   {
-    category: "TYPES OF RICE PREPARATIONS",
-    items: ["CURD", "LEMON", "TAMARIND", "FRIED"],
+    category: "Sources of Light",
+    items: ["Sun", "Tubelight", "Lighter", "Candle"],
     level: 2,
   },
   {
-    category: 'IIM WORLD SPORTS FESTS IN ENGLISH',
-    items: ["STRUGGLE", "OUTRAGE", "VALOUR", "BATTLE"],
+    category: 'Things that are rolled',
+    items: ["Cigarette", "Dice", "Wrap", "Dough"],
     level: 3,
    
   },
   {
-    category: "WORDS THAT SOUND LIKE PHILOSOPHERS",
-    items: ["PLATEAU", "NICHE", "LOCK", "MARKS"],
+    category: "Things Professors Hate",
+    items: ["Globe", "Sleep", "Smoking", "Electronics"],
     level: 4,
   },
 ];
 
-export const gameID: number = 2
+export const gameID: number = 3

@@ -19,36 +19,37 @@ export default function TodayThemeModal({ isOpen, onClose }: TodayThemeModalProp
 
         {/* Everything that was originally inside your second modal */}
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">Types of Dosas at Radhikas</h3>
+          <h3 className="font-semibold mb-2">___ WARS</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Pizza, Garlic, Paneer, Plain</li>
+            <li>Section: Refers to Section Wars at IIMA.</li>
+            <li>Star: Star Wars, the iconic movie series.</li>
+            <li>World: World Wars, significant historical events</li>
+            <li>Fan: Fan Wars, debates or clashes among fandoms.</li>
+
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">Types of Rice Preparations</h3>
+          <h3 className="font-semibold mb-2">Sources of Light</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Curd, Lemon, Tamarind and Fried.</li>
+            <li>Sun, Tubelight, Lighter, Candle.</li>
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">IIM World Sports Fests in English</h3>
+          <h3 className="font-semibold mb-2">Things that are rolled</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Struggle (Sangharsh): Sports fest between IIMA, IIMB, IIMC, and IIML</li>
-            <li>Outrage (Aakrosh): Sports fest within IIMA for section wars.</li>
-            <li>Valour (Shaurya): Sports fest for Gujarat colleges.</li>
-            <li>Battle (Yalgaar): Sports fest between junior and senior batches.</li>
+            <li>Cigarette, Dice, Wrap, Dough.</li>
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">Words That Sound Like Philosophers</h3>
+          <h3 className="font-semibold mb-2">Things Professors Hate</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Plateau: Sounds like &quot;Plato,&quot; the Greek philosopher.</li>
-            <li>Niche: Sounds like &quot;Nietzsche,&quot; the German philosopher.</li>
-            <li>Lock: Sounds like &quot;Locke,&quot; the English philosopher.</li>
-            <li>Marks: Sounds like &quot;Marx,&quot; the German philosopher.</li>
+            <li>Globe: Refers to giving vague, generalized answers in class</li>
+            <li>Sleep: Dozing off during lectures.</li>
+            <li>Smoking: Discouraged on campus</li>
+            <li>Electronics: Misusing devices like laptops or phones during class</li>
           </ul>
         </div>
 
