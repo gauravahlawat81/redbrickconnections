@@ -9,9 +9,9 @@ const dbName = process.env.MONGODB_DB as string;
 export async function POST(request: NextRequest) {
   try {
     // 1) Parse the incoming JSON from the request body
-    const { email, gameID, newScore } = await request.json();
+    const { email, gameID } = await request.json();
 
-    if (!email || !gameID || typeof newScore !== "number") {
+    if (!email || !gameID ) {
       return NextResponse.json(
         { error: "Missing or invalid parameters" },
         { status: 400 }
@@ -41,23 +41,18 @@ export async function POST(request: NextRequest) {
 
     if (!alreadyWon) {
       // (a) Convert user's existing "score" to a number
-      const oldScore = userDoc.score ? parseInt(userDoc.score, 10) : 0;
-      const updatedScore = oldScore + newScore;
-
       // (b) Update the user's score and push the gameID
       await usersCollection.updateOne(
         { email_id: email },
         {
-          $set: { score: updatedScore },
           $push: { gamesWon: gameID },
         }
       );
 
-      console.log(`User ${email} gained ${newScore} points. 
-        Updated total: ${updatedScore}. 
+      console.log(`User ${email} lost  
         gameID: ${gameID} added to gamesWon.`);
     } else {
-      console.log(`User ${email} has already won/lost game ${gameID}; skipping score update.`);
+      console.log(`User ${email} has already won game ${gameID}; skipping any update.`);
     }
 
     await client.close();
