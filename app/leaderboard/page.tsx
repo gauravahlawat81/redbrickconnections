@@ -14,11 +14,11 @@ export const revalidate = 0;
 
 // Server Component
 export default async function LeaderboardPage() {
+  // 1) Fetch top 10 leaders from your DB
   const leaders = await getLeaders();
 
-  return (
-    <LeaderboardClient leaders={leaders} />
-  );
+  // 2) Pass them to your client component
+  return <LeaderboardClient leaders={leaders} />;
 }
 
 /**
@@ -27,6 +27,7 @@ export default async function LeaderboardPage() {
 async function getLeaders() {
   const mongoUri = process.env.MONGODB_URI;
   const dbName = process.env.MONGODB_DB;
+
   if (!mongoUri || !dbName) {
     throw new Error("Missing MONGODB_URI or MONGODB_DB environment variables");
   }
@@ -36,7 +37,12 @@ async function getLeaders() {
   try {
     const db = client.db(dbName);
     const usersCollection = db.collection("Users");
-    return await usersCollection.find({}).sort({ score: -1 }).limit(10).toArray();
+
+    return await usersCollection
+      .find({})
+      .sort({ score: -1 })
+      .limit(10)
+      .toArray();
   } finally {
     await client.close();
   }
