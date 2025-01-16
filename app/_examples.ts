@@ -2,26 +2,26 @@ import { Category } from "./_types";
 
 export const categories: Category[] = [
   {
-    category: "___ WARS",
-    items: ["Section", "Star", "World", "Fan"],
+    category: "BEERS",
+    items: ["Elephant", "Kingfisher", "Magnum", "Miller"],
     level: 1,
   },
   {
-    category: "Sources of Light",
-    items: ["Sun", "Tubelight", "Lighter", "Candle"],
+    category: "FAST FAUNA",
+    items: ["Cheetah", "Falcon", "Ostrich", "Horse"],
     level: 2,
   },
   {
-    category: 'Things that are rolled',
-    items: ["Cigarette", "Dice", "Wrap", "Dough"],
+    category: '___ EFFECT',
+    items: ["Bandwagon", "Butterfly", "Halo", "Ikea"],
     level: 3,
    
   },
   {
-    category: "Things Professors Hate",
-    items: ["Globe", "Sleep", "Smoking", "Electronics"],
+    category: "Economics Courses at IIMA",
+    items: ["Hitch", "ME", "GTA", "BEE"],
     level: 4,
   },
 ];
 
-export const gameID: number = 3
+export const gameID: number = 4

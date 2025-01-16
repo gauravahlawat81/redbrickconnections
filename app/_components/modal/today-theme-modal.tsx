@@ -19,37 +19,37 @@ export default function TodayThemeModal({ isOpen, onClose }: TodayThemeModalProp
 
         {/* Everything that was originally inside your second modal */}
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">___ WARS</h3>
+          <h3 className="font-semibold mb-2">Beers</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Section: Refers to Section Wars at IIMA.</li>
-            <li>Star: Star Wars, the iconic movie series.</li>
-            <li>World: World Wars, significant historical events</li>
-            <li>Fan: Fan Wars, debates or clashes among fandoms.</li>
-
+            <li>Elephant, Kingfisher, Magnum, Miller: Popular beer brands</li>
+            
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">Sources of Light</h3>
+          <h3 className="font-semibold mb-2">Fast Fauna</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Sun, Tubelight, Lighter, Candle.</li>
+            <li>Cheetah, Falcon, Ostrich, Horse: Animals known for their speed.</li>
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">Things that are rolled</h3>
+          <h3 className="font-semibold mb-2">____ Effect</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Cigarette, Dice, Wrap, Dough.</li>
+            <li>Bandwagon: Following trends because others do.</li>
+            <li>Butterfly: Small changes causing significant effects</li>
+            <li>Halo: One positive trait influencing perception.</li>
+            <li>Ikea: Valuing items more because you assembled them</li>
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">Things Professors Hate</h3>
+          <h3 className="font-semibold mb-2">Economics Courses at IIMA</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Globe: Refers to giving vague, generalized answers in class</li>
-            <li>Sleep: Dozing off during lectures.</li>
-            <li>Smoking: Discouraged on campus</li>
-            <li>Electronics: Misusing devices like laptops or phones during class</li>
+            <li>Hitch: Hitchhiker&apos;s Guide to Business and Economies Across Five Centuries</li>
+            <li>ME: Microeconomics.</li>
+            <li>GTA: Game Theory and Applications.</li>
+            <li>BEE: Behavioral and Experimental Economics</li>
           </ul>
         </div>
 
