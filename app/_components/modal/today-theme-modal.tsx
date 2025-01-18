@@ -29,7 +29,7 @@ export default function TodayThemeModal({ isOpen, onClose }: TodayThemeModalProp
         <div className="text-black text-base md:text-lg mb-4 w-full">
           <h3 className="font-semibold mb-2">Cars used by Amitabh Bachchan in Movies</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Ambassador: Used in the movie Muqaddar ka Sikandar</li>
+            <li>Ambassador: Used in the movie Benaam</li>
             <li>Padmini: Used in the movie Khuddar</li>
             <li>Contessa: Used in the movie Don</li>
             <li>Beetle: Used in the movie Akayla</li>
