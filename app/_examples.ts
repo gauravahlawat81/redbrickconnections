@@ -2,26 +2,26 @@ import { Category } from "./_types";
 
 export const categories: Category[] = [
   {
-    category: "BEERS",
-    items: ["Elephant", "Kingfisher", "Magnum", "Miller"],
+    category: "IIMA Lawns",
+    items: ["Gypsy", "Nursery", "Children's Park", "Tower"],
     level: 1,
   },
   {
-    category: "FAST FAUNA",
-    items: ["Cheetah", "Falcon", "Ostrich", "Horse"],
+    category: "Cars used by Amitabh Bachchan in Movies",
+    items: ["Ambassador", "Padmini", "Contessa", "Beetle"],
     level: 2,
   },
   {
-    category: '___ EFFECT',
-    items: ["Bandwagon", "Butterfly", "Halo", "Ikea"],
+    category: 'Birds in EPL Team Logos',
+    items: ["Liver", "Canary", "Eagle", "Rooster"],
     level: 3,
    
   },
   {
-    category: "Economics Courses at IIMA",
-    items: ["Hitch", "ME", "GTA", "BEE"],
+    category: "Things that are Yellow",
+    items: ["Demigrads", "Minions", "CSK", "Simpsons"],
     level: 4,
   },
 ];
 
-export const gameID: number = 4
+export const gameID: number = 5
