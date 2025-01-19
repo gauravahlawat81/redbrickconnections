@@ -13,7 +13,7 @@ export const categories: Category[] = [
   },
   {
     category: 'Eateries on campus',
-    items: ["Prithvi", "Kamla", "Radhika", "Jaya Vairab Nath"],
+    items: ["Prithvi", "Kamla", "Radhika", "Jaya Bairav Nath"],
     level: 3,
    
   },

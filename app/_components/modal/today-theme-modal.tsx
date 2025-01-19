@@ -29,7 +29,7 @@ export default function TodayThemeModal({ isOpen, onClose }: TodayThemeModalProp
         <div className="text-black text-base md:text-lg mb-4 w-full">
           <h3 className="font-semibold mb-2">Eateries on Campus</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Prithvi, Kamla, Radhika, Jaya Vairab Nath: Food spots at IIMA. Prithvi Mess, Kamla Café. Radhika’s and JBN (Jaya Vairab Nath)</li>
+            <li>Prithvi, Kamla, Radhika, Jaya Bairav Nath: Food spots at IIMA. Prithvi Mess, Kamla Café. Radhika’s and JBN (Jaya Vairab Nath)</li>
           </ul>
         </div>
 
