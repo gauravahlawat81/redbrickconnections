@@ -19,39 +19,37 @@ export default function TodayThemeModal({ isOpen, onClose }: TodayThemeModalProp
 
         {/* Everything that was originally inside your second modal */}
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">IIMA Lawns</h3>
+          <h3 className="font-semibold mb-2">Ahmedabad Businesses</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Gyspsy, Nursery, Chilrden&apos;s Park, Tower</li>
+            <li>Rasna, Vadilal, Gandhi Soda Shop, Adani.</li>
             
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">Cars used by Amitabh Bachchan in Movies</h3>
+          <h3 className="font-semibold mb-2">Eateries on Campus</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Ambassador: Used in the movie Benaam</li>
-            <li>Padmini: Used in the movie Khuddar</li>
-            <li>Contessa: Used in the movie Don</li>
-            <li>Beetle: Used in the movie Akayla</li>
+            <li>Prithvi, Kamla, Radhika, Jaya Vairab Nath: Food spots at IIMA. Prithvi Mess, Kamla Café. Radhika’s and JBN (Jaya Vairab Nath)</li>
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">Birds in EPL Team Logos</h3>
+          <h3 className="font-semibold mb-2">___ Sarabhai</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Liver: Used by Liverpool FC</li>
-            <li>Canary: Used by Norwich City FC</li>
-            <li>Eagle: Used by Crystal Palace FC</li>
-            <li>Rooster: Used by Tottenham Hotspur</li>
+            <li>Vikram: Renowned scientist and founder of ISRO</li>
+            <li>Mallika: Activist, Padma Bhushan awardee, and accomplished Kuchipudi and Bharatanatyam dancer who uses art for social change.</li>
+            <li>Mrinalini: Celebrated Bharatanatyam dancer and founder of Darpana Academy.</li>
+            <li>Anasuya: Social worker, women&apos;s rights activist, and nationalist leader.</li>
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">Things that are Yellow</h3>
+          <h3 className="font-semibold mb-2">Names with Body Parts in Them</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Demigrads: Section D of Batch 2025 had yellow as their color</li>
-            <li>Minions and Simpsons: Fictional characters </li>
-            <li>CSK: Chennai Super Kings have yellow color jersey.</li>
+            <li>Chinmay:  like Prof. Chinmay Tumbe - contains &quot;Chin.&quot;</li>
+            <li>Palmo - like Thupstan Palmo - contains &quot;Palm.&quot;</li>
+            <li>Armando - contains &quot;Arm.&quot;</li>
+            <li>Handa: Contains &quot;Hand.&quot;</li>
           </ul>
         </div>
 
