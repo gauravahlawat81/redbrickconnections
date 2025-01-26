@@ -19,37 +19,34 @@ export default function TodayThemeModal({ isOpen, onClose }: TodayThemeModalProp
 
         {/* Everything that was originally inside your second modal */}
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">___ Play</h3>
+          <h3 className="font-semibold mb-2">DIRE ___</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Foreplay, Screenplay, Downplay, Coldplay</li>
+            <li>DIRESOME, DIRECT, DIREWOLF, DIRE HIT</li>
             
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">Terms Related to the Placement Process</h3>
+          <h3 className="font-semibold mb-2">INDIAN FREEDOM FIGHTERS FIRST NAME</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>Relate, Dream, Hold, Accept</li>
+            <li>Mahatama Gandhi, Bhagat Singh, Mangal Pandey, Subhash Chandra Bose</li>
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">Regional groups at IIMA</h3>
+          <h3 className="font-semibold mb-2">IIMA Dorm Names</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>WTF - WIMWIAN Tamil Fraternity</li>
-            <li>SPAM: Some People Are Mallus</li>
-            <li>USA: United States of Andhra</li>
-            <li>Token Diversity Gang</li>
+            <li>Mandir: Dorm 19 Name</li>
+            <li>Pataal Lok: Dorm 20 Name</li>
+            <li>Godsmen: Dorm 21 Name</li>
+            <li>Imperial Blues: Dorm 39 Name</li>
           </ul>
         </div>
 
         <div className="text-black text-base md:text-lg mb-4 w-full">
-          <h3 className="font-semibold mb-2">4th</h3>
+          <h3 className="font-semibold mb-2">PLACES YOU FIND YOUR FUTURE SPOUSE</h3>
           <ul className="list-disc list-inside ml-4">
-            <li>IIMA @ Sangharsh: IIMA finished 4th this year.</li>
-            <li>Alan Bean: The 4th person to walk on the moon.</li>
-            <li>Press: Known as the 4th Estate in democracy.</li>
-            <li>US Independence: Celebrated on July 4th.</li>
+            <li>Bumble, Linkedin, Newspaper, Shaadi.com</li>
           </ul>
         </div>
 

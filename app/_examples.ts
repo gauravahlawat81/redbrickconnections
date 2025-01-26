@@ -2,26 +2,26 @@ import { Category } from "./_types";
 
 export const categories: Category[] = [
   {
-    category: "___ PLAY",
-    items: ["Fore", "Screen", "Down", "cold"],
+    category: "DIRE___",
+    items: ["SOME", "HIT", "CT", "WOLF"],
     level: 1,
   },
   {
-    category: "Terms Related to the Placement Process",
-    items: ["Relate", "Dream", "Hold", "Accept"],
+    category: "INDIAN FREEDOM FIGHTERS FIRST NAME",
+    items: ["MAHATAMA", "BHAGAT", "SUBHAS", "MANGAL"],
     level: 2,
   },
   {
-    category: 'Regional groups at IIMA',
-    items: ["SPAM", "USA", "Token Diversity Gang", "WTF"],
+    category: 'IIMA DORM NAMES ',
+    items: ["MANDIR", "PATAAL LOK", "GODSMEN", "IMPERIAL BLUE"],
     level: 3,
    
   },
   {
-    category: "4th",
-    items: ["IIMA @ Sangharsh", "Alan Bean", "Press", "US Independence"],
+    category: "PLACES YOU FIND YOUR FUTURE SPOUSE",
+    items: ["LINKEDIN", "SHAADI.COM", "BUMBLE", "NEWSPAPER"],
     level: 4,
   },
 ];
 
-export const gameID: number = 7
+export const gameID: number = 8
